@@ -2,6 +2,36 @@
 
 This API provides functionality to manage files and folders on a server using HTTP requests. The API is accessible via cURL or any other HTTP client tool.
 
+
+## Running the app:
+1. Clone this repository:
+```
+git clone git@github.com:afshin-deriv/FileManagerAPI.git
+```
+2. Build the Docker image:
+```
+make build
+```
+3. Run the app in development mode:
+```
+make dev
+```
+4. Run the app in production mode:
+```
+make prod
+```
+5. Access the API at `http://localhost:8080`.
+--------------------------------------------
+
+## API Endpoints
+- **GET /list_files:** List all files and directories in a given path.
+- **DELETE /delete_files:** Delete one or more files in a given path.
+- **PUT /rename_files:** Rename a file in a given path.
+- **PUT /move_files:** Move one or more files from one path to another.
+- **POST /create_files:** Create a new HTML or text file in a given path.
+- **POST /transfer_files:** Transfer a file from a given URL to a given path.
+- **POST /zip_files:** Zip one or more files in a given path.
+
 --------------------------------------------
 ## List all files/folders on instance/folder
 
@@ -16,7 +46,7 @@ This endpoint lists all the files and folders in a specified directory on the se
 - **path** (required): *The path to the directory to list.*
 **Example:**
 ```
-curl http://localhost:5000/list_files?path=/path/to/folder
+curl http://localhost:8080/list_files?path=/path/to/folder
 ```
 --------------------------------------------
 ## Delete files
@@ -43,7 +73,7 @@ This endpoint deletes one or more files from a specified directory on the server
 
 **Example:**
 ```
-curl -X DELETE -H "Content-Type: application/json" -d '{"files":["file1.txt","file2.txt"]}' http://localhost:5000/delete_files?path=/path/to/folder
+curl -X DELETE -H "Content-Type: application/json" -d '{"files":["file1.txt","file2.txt"]}' http://localhost:8080/delete_files?path=/path/to/folder
 ```
 --------------------------------------------
 ## Rename files
@@ -65,7 +95,7 @@ This endpoint renames a file in a specified directory on the server.
 ```
 **Example:**
 ```
-curl -X PUT -H "Content-Type: application/json" -d '{"old_file_name":"file1.txt","new_file_name":"newfile.txt"}' http://localhost:5000/rename_files?path=/path/to/folder
+curl -X PUT -H "Content-Type: application/json" -d '{"old_file_name":"file1.txt","new_file_name":"newfile.txt"}' http://localhost:8080/rename_files?path=/path/to/folder
 ```
 --------------------------------------------
 ## Move files
@@ -90,7 +120,7 @@ This endpoint moves one or more files from one directory to another on the serve
 ```
 **Example:**
 ```
-curl -X PUT -H "Content-Type: application/json" -d '{"files":["file1.txt","file2.txt"]}' http://localhost:5000/move_files?src_path=/path/to/src&dst_path=/path/to/dst
+curl -X PUT -H "Content-Type: application/json" -d '{"files":["file1.txt","file2.txt"]}' http://localhost:8080/move_files?src_path=/path/to/src&dst_path=/path/to/dst
 ```
 --------------------------------------------
 ## Create new html and text files
@@ -128,7 +158,7 @@ This endpoint transfers a file from a website URL to the server.
 
 **Example:**
 ```
-curl -X POST http://localhost:5000/transfer_files?url=https://example.com/file.txt&path=/path/to/folder
+curl -X POST http://localhost:8080/transfer_files?url=https://example.com/file.txt&path=/path/to/folder
 ```
 --------------------------------------------
 ## Zip multiple files
@@ -153,5 +183,5 @@ This endpoint creates a ZIP archive containing multiple files in a specified dir
 
 **Example:**
 ```
-curl -X POST -H "Content-Type: application/json" -d '{"files":["file1.txt","file2.txt"],"zip_name":"archive.zip"}' http://localhost:5000/zip_files?path=/path/to/folder
+curl -X POST -H "Content-Type: application/json" -d '{"files":["file1.txt","file2.txt"],"zip_name":"archive.zip"}' http://localhost:8080/zip_files?path=/path/to/folder
 ```
